@@ -10,7 +10,22 @@ data "aws_ami" "ami" {
   tags = {
     Name = var.component
   }
+   provisioner "remote-exec" {
+     connection {
+       type     = "ssh"
+       user     = "root"
+       password = "DevOps321"
+       host     = self.public_ip
+     }
+     inline = [
+
+      "git clone https://github.com/shuja-git/roboshop-shell",
+       "cd roboshop-shell",
+       "sudo bash ${var.component}.sh"
+     ]
+   }
 }
+
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}-sg"
   description = "Allow ALL"
