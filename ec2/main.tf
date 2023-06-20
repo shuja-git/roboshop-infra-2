@@ -14,13 +14,14 @@ data "aws_ami" "ami" {
   }
  }
 resource "null_resource" "provisioner" {
-  provisioner "remote-exec" {
+
     connection {
       type     = "ssh"
       user     = "centos"
       password = "DevOps321"
       host     = aws_instance.ec2.public_ip
     }
+  provisioner "remote-exec" {
     inline = [
      "ansible-playbook -i localhost, -U https://github.com/shuja-git/roboshop-ansible-2 roboshop.yml -e role_name=${var.component}"
     ]
