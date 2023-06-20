@@ -23,7 +23,7 @@ resource "null_resource" "provisioner" {
     }
   provisioner "remote-exec" {
     inline = [
-     "ansible-playbook -i localhost, -U https://github.com/shuja-git/roboshop-ansible-2 roboshop.yml -e role_name=${var.component}"
+     "ansible-pull -i localhost, -U https://github.com/shuja-git/roboshop-ansible-2 roboshop.yml -e role_name=${var.component}"
     ]
   }
 }
