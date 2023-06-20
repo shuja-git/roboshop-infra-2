@@ -1,7 +1,9 @@
+data "aws_caller_identity" "current" {}
+
 data "aws_ami" "ami" {
   most_recent = true
-  name_regex  = "Centos-8-DevOps-Practice"
-  owners      = ["973714476881"]
+  name_regex  = "devops-practice-with-ansible"
+  owners      = [data.aws_caller_identity.current.account_id]
 }
   resource "aws_instance" "ec2" {
   ami           = data.aws_ami.ami.image_id
