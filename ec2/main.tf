@@ -15,15 +15,12 @@ resource "null_resource" "provisioner" {
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
-      user     = "root"
+      user     = "centos"
       password = "DevOps321"
       host     = aws_instance.ec2.public_ip
     }
     inline = [
-
-      "git clone https://github.com/shuja-git/roboshop-shell",
-      "cd roboshop-shell",
-      "sudo bash ${var.component}.sh ${var.password}"
+     "ansible-playbook -i localhost, -U https://github.com/shuja-git/roboshop-ansible-2 roboshop.yml -e role_name={var.component}"
     ]
   }
 }
